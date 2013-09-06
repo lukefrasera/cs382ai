@@ -1,15 +1,14 @@
 def isValidCase(a,b):
 	A = float(a)/3
 	B = float(b)/3
-
 	if A<0 or A>1  or B<0 or B>1:
 		return False
 	x = 3 - a
 	y = 3 - b
-
 	if (a<b and a!=0) or (x<y and x!=0):
 		return False
-
+	return True
+	
 def isValidState(state):
 	return isValidCase(state[0],state[1])
 
@@ -32,20 +31,71 @@ def genPossibilityList(a,b,c):
 #Keep a list of result
 #[(state, N),...]
 
-def updateOccurence(state,N,L):
+def updateOccurence(state,N):
+	global OcurencesList
 	X = []
-	new = False
+	new = True
+	append = False
 
-	for i in L:
-		if state == i[0] and N<i[1]:
-			X.append((state,N))
-			new = True
-		X.append(i)
+	for i in OcurencesList:
+		if state == i[0]:
+			new = False
+			if N<i[1]:
+				X.append((state,N))
+				append = True
+			else:
+				X.append(i)
+		else:
+			X.append(i)
+	if new:
+		X.append((state,N))
+		append = True
+	OcurencesList = X
+	return append
 
-	return (X,new)
 
+def MCSolveRecur(state, N):
+	newState = updateOccurence(state,N)
 
-def MCSolveRecur(state, L):
+	if not newState:
+		return None
 
 	if state==(0,0,0):
-		return L.append(state)
+		return [state]
+
+	if not isValidState(state):
+		return None
+
+	L = [MCSolveRecur(minus(state,i), N+1)for i in genPossibilityList(state[0],state[1],state[2])]
+
+
+	for i in sorted(filter(None,L), key=lambda list: len(list)):
+		if i[len(i)-1] != None:
+			return [state] + i
+	return None
+
+
+def minus(xT,yT):
+	a = xT[0] - yT[0]
+	b = xT[1] - yT[1]
+	c = xT[2] - yT[2]
+	return (a,b,c)
+
+
+def main():
+	initialState = (3,3,1)
+	global OcurencesList
+
+	L = MCSolveRecur(initialState,0)
+
+	print OcurencesList
+	print "\nAnswer:"
+	print L
+
+OcurencesList = []
+
+if __name__ == '__main__':
+	main()
+
+
+# you never subtracted to get next value 	
