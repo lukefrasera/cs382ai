@@ -8,7 +8,7 @@ def isValidCase(a,b):
 	if (a<b and a!=0) or (x<y and x!=0):
 		return False
 	return True
-	
+
 def isValidState(state):
 	return isValidCase(state[0],state[1])
 
@@ -98,4 +98,10 @@ if __name__ == '__main__':
 	main()
 
 
-# you never subtracted to get next value 	
+# I would rework this inorder to take advantage of breadth first search. Breadth first search 
+# will provide a faster algorithm because it will find the optimal solutions first given that 
+# the optimal solutions will be the shortest branch resulting in a silution. I like using parts from dynamic
+# programming and storing a list of previously disovered states seems like a good idea for speeding
+# up the search because unless a discovered state is found in a shorter time there is no sense continueing
+# along the branch or if it dicovered in the same amount of time this only has the potential to
+# produce another optimal solution, but not one that is better.
