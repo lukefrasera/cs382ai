@@ -88,6 +88,7 @@ def main():
 
 	L = MCSolveRecur(initialState,0)
 
+	print "\nOccurence List:"
 	print OcurencesList
 	print "\nAnswer:"
 	print L
