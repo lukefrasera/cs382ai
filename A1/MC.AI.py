@@ -1,10 +1,14 @@
 def isValidCase(a,b):
+	# Check that a and be are with in range
 	A = float(a)/3
 	B = float(b)/3
 	if A<0 or A>1  or B<0 or B>1:
 		return False
+	# interpret other side of river
 	x = 3 - a
 	y = 3 - b
+
+	# Check for invalid state
 	if (a<b and a!=0) or (x<y and x!=0):
 		return False
 	return True
@@ -12,15 +16,26 @@ def isValidCase(a,b):
 def isValidState(state):
 	return isValidCase(state[0],state[1])
 
+# This functionw will take any tuple and return
+# the negated version of that same tuple
 def negateTuple(L):
 	x = ()
 	for i in L:
 		x += (i * -1,)
 	return x
 
+# This function will generate all the possible branhes
+# a node can have in the recursive tree
 def genPossibilityList(a,b,c):
+	# i have commented out the list generation of all
+	# possibilties and hard coded the result for speed
+
 	#L = [(x,y,1) for x in range(a+1) for y in range(b+1) if x+y<=2 and (x is not 0 or y is not 0)]
 	L = [(0,1,1), (0,2,1), (1,0,1), (1,1,1), (2,0,1)]
+
+	# Here i filter the poissiblility list further by 
+	# checking against the side on which the boat is 
+	# to attempt and further limit branching
 	if c is 0:
 		a = 3-a
 		b = 3-b
@@ -31,6 +46,11 @@ def genPossibilityList(a,b,c):
 #Keep a list of result
 #[(state, N),...]
 
+# updateOccurrence: This function maintains a list of the states
+# that have been visisted already and the depth at which that state
+# was reached. This list is compared against inorder to prevent redundant
+# branches of already reached states that are longer that previously
+# stored occurences.
 def updateOccurence(state,N):
 	global OcurencesList
 	X = []
@@ -54,6 +74,8 @@ def updateOccurence(state,N):
 	return append
 
 
+# This is the main recursive function that will return one of the optimal
+# solutions to the missionaries and cannibals problem.
 def MCSolveRecur(state, N):
 	newState = updateOccurence(state,N)
 
@@ -74,7 +96,7 @@ def MCSolveRecur(state, N):
 			return [state] + i
 	return None
 
-
+# This function subtracts to tuples: size 3
 def minus(xT,yT):
 	a = xT[0] - yT[0]
 	b = xT[1] - yT[1]
