@@ -4,5 +4,5 @@
 ##Due: Sept 30th
 
 ##Group Members:
-	*Luke Fraser
-	*Joe Neville
+* Luke Fraser
+* Joe Neville
