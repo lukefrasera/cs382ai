@@ -2,6 +2,9 @@
 # import dirplay class
 import sys, os
 from mapGenerator import Map
+
+sys.path.append('../')
+from projectdisplayclass import plot
 # IMPORT DISPLAY CLASS
 
 def cls():
