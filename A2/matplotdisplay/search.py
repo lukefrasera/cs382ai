@@ -1,3 +1,7 @@
+import sys
+sys.path.append('../')
+
+from searchAlgoriths import *
 
 
 class matplotSearch:
@@ -6,7 +10,17 @@ class matplotSearch:
 		self.h = h
 		self.table = table
 
-	def BFS(self):pass
+	def BFS(self, problem, frontier)
+		frontier.append(Node(problem.initial))
+		explored = set()
+		while frontier:
+        node = frontier.pop()
+        if problem.goal_test(node.state):
+            return node
+        explored.add(node.state)
+        frontier.extend(child for child in node.expand(problem)
+                        if child.state not in explored
+                        and child not in frontier)
 
 	def star(self):pass
 
@@ -18,6 +32,8 @@ class matplotSearch:
 
 	def runBFS(self):
 		print 'BFS'
+
+		
 	def runStar():pass
 	def runGreed():pass
 	def runUCS():pass
