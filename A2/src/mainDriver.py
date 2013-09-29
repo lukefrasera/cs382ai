@@ -1,11 +1,10 @@
 # MainDriver.py
-# import dirplay class
 import sys, os
-from mapGenerator import Map
-
 sys.path.append('../')
-from projectdisplayclass import plot
-# IMPORT DISPLAY CLASS
+
+# import dirplay class
+from mapGenerator import Map
+from matplotdisplay import plot
 
 def cls():
     os.system(['clear','cls'][os.name == 'nt'])
