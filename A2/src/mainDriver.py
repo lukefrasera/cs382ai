@@ -1,5 +1,5 @@
 # MainDriver.py
-import sys, os
+import sys, os, random
 sys.path.append('../')
 
 # import dirplay class
@@ -10,12 +10,15 @@ def cls():
     os.system(['clear','cls'][os.name == 'nt'])
 
 def main():
-
-	plot = matplotSearch(10,10,[])
+	random.seed()
+	rows = random.randint(60, 150)
+	cols = random.randint(60, 150)
+	ourMap = Map(rows, cols)
+	plot = matplotSearch(rows,cols,ourMap)
 	#main program loop
 	while(True):
 		# clear console
-		# cls()
+		cls()
 		# Generate Terrain
 		# Generate menu cases
 		input = raw_input("Choose Algorithm:\n\

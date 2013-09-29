@@ -1,4 +1,7 @@
+import sys
+sys.path.append('../')
 
+from searchAlgoriths import *
 
 class matplotSearch:
 	def __init__(self, w,h,table):
@@ -18,6 +21,8 @@ class matplotSearch:
 
 	def runBFS(self):
 		print 'BFS'
+
+		
 	def runStar():pass
 	def runGreed():pass
 	def runUCS():pass
