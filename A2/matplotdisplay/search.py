@@ -8,6 +8,7 @@ class matplotSearch:
 		self.w = w
 		self.h = h
 		self.table = table
+		self.problem = Problem('''''')
 
 	def BFS(self):pass
 

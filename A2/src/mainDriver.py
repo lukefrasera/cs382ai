@@ -44,6 +44,7 @@ def main():
 			# hill climbing search
 		if(input == '5'):
 			plot.runHill()
+			
 		if(input == '6'):
 			break
 			
