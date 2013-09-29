@@ -1,3 +1,6 @@
+# LUKE FRASER
+# AI: ASSIGNMENT 1
+
 def isValidCase(a,b):
 	# Check that a and be are with in range
 	A = float(a)/3
@@ -121,12 +124,12 @@ if __name__ == '__main__':
 	main()
 
 
-# I would rework this inorder to make my code cleaner and more readabl and avoid some indicission of choices between
+# I would rework this inorder to make my code cleaner, more readable and avoid some indicission of choices between
 # recurrsive and iterative solutions. I would prefer to use Breadth first search with queues. python feels inefficient
 # for something like this due to all the lists used and copying of lists needed. c++ would be more concrete.
-# I used BFS because it provides a fast algorithm that will find the optimal solutions first given that 
+# I would use BFS because it provides a fast algorithm that will find the optimal solutions first given that 
 # the optimal solutions will be the shortest branch resulting in a solution. I like using parts from dynamic
 # programming and storing a list of previously disovered states seems like a good idea for speeding
 # up the search because unless a discovered state is found in a shorter time there is no sense continueing
-# along the branch or if it dicovered in the same amount of time this only has the potential to
+# along the branch or if it is dicovered in the same amount of time this only has the potential to
 # produce another optimal solution, but not one that is better.
