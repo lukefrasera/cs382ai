@@ -3,7 +3,6 @@ sys.path.append('../')
 
 from searchAlgoriths import *
 
-
 class matplotSearch:
 	def __init__(self, w,h,table):
 		self.w = w

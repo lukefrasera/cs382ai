@@ -15,7 +15,7 @@ def main():
 	#main program loop
 	while(True):
 		# clear console
-		# cls()
+		cls()
 		# Generate Terrain
 		# Generate menu cases
 		input = raw_input("Choose Algorithm:\n\
