@@ -1,22 +1,23 @@
 
 
-class plot:
+class matplotSearch:
 	def __init__(self, w,h,table):
 		self.w = w
 		self.h = h
 		self.table = table
 
-	def BFS():pass
+	def BFS(self):pass
 
-	def star():pass
+	def star(self):pass
 
-	def greed():pass
+	def greed(self):pass
 
-	def UCS():pass
+	def UCS(self):pass
 
-	def hill():pass
+	def hill(self):pass
 
-	def runBFS():pass
+	def runBFS(self):
+		print 'BFS'
 	def runStar():pass
 	def runGreed():pass
 	def runUCS():pass
