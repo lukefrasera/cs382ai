@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 from matplotlib import animation
 sys.path.append(['../','..\\'][os.name == 'nt'])
 
-from searchAlgorithms import *
+from searchAlgoriths import *
 
 class matplotSearch:
 	def __init__(self, w,h,table):
