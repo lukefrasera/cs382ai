@@ -10,13 +10,13 @@ def display(map):
 	for l in range(len(map)):
 		for w in range(len(map[0])):
 			if map[l][w] < 0:
-				string = string +'*' # expanded
+				string = string +'.' # expanded
 			elif map[l][w] == 9:
 				string = string +'0' # path
 			elif map[l][w] > 0:
 				string = string +'+' # obstacle
 			elif map[l][w] == 0:
-				string = string +'.'
+				string = string +' '
 		string = string + '\n'
 	return string
 
@@ -28,8 +28,8 @@ class TerminalSearch:
 		self.w = w
 		self.h = h
 		self.table = table
-		self.initial = (0,0)
-		self.goal = (h-1, w-1)
+		self.initial = (h-1,0)
+		self.goal = (0, w-1)
 		self.map = self.table
 	
 	def nodeDepth(self, node):
@@ -40,15 +40,6 @@ class TerminalSearch:
 
 		return math.sqrt(x*x + y*y)
 		
-	def BFS(self):pass
-
-	def star(self):pass
-
-	def greed(self):pass
-
-	def UCS(self):pass
-
-	def hill(self):pass
 
 	def runBFS(self):
 		self.problem = mapProblem(self.initial, self.goal, self.w, self.h, self.map)
@@ -103,13 +94,10 @@ class TerminalSearch:
 
 	def runHill(self):
 		self.problem = mapProblem(self.initial, self.goal, self.w, self.h, self.map)
-		node, map =  hill_climbing(self.problem)
+		state=  hill_climbing(self.problem)
 
-		if node == None:
+		if state == None:
 			print 'No Path Possible'
 			return -1
 
-		for i in node.path():
-			map[i.state[0]][i.state[1]] = 9
-		cls()
-		print display(map)
+		print "Local Max: " + str(state)

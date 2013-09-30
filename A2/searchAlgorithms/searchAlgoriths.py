@@ -216,13 +216,13 @@ def display(map):
         for l in range(len(map)):
             for w in range(len(map[0])):
                 if map[l][w] < 0:
-                    string = string +'*' # expanded
+                    string = string +'.' # expanded
                 elif map[l][w] == 9:
                     string = string +'0' # path
                 elif map[l][w] > 0:
                     string = string +'+' # obstacle
                 elif map[l][w] == 0:
-                    string = string +'.'
+                    string = string +' '
             string = string + '\n'
         return string
 def cls():
@@ -346,6 +346,10 @@ def hill_climbing(problem):
         neighbors = current.expand(problem)
         if not neighbors:
             break
+        for i in neighbors:
+            problem.map[i.state[0]][i.state[1]] = -1
+        cls()
+        print display(problem.map)
         neighbor = argmax_random_tie(neighbors,
                                      lambda node: problem.value(node.state))
         if problem.value(neighbor.state) <= problem.value(current.state):
