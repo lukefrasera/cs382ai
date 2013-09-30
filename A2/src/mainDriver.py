@@ -1,6 +1,6 @@
 # MainDriver.py
 import sys, os, random
-sys.path.append('../')
+sys.path.append(['../','..\\'][os.name == 'nt'])
 
 # import dirplay class
 from mapGenerator import Map
