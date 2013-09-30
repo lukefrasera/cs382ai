@@ -4,7 +4,7 @@ sys.path.append('../')
 from mapSearchProblem import *
 from searchAlgoriths import *
 
-lass TerminalSearch:
+class TerminalSearch:
 	def __init__(self, w,h,table, world):
 		self.w = w
 		self.h = h
