@@ -28,8 +28,8 @@ class TerminalSearch:
 		self.w = w
 		self.h = h
 		self.table = table
-		self.initial = (0,0)
-		self.goal = (h-1, w-1)
+		self.initial = (h-1,0)
+		self.goal = (0, w-1)
 		self.map = self.table
 	
 	def nodeDepth(self, node):

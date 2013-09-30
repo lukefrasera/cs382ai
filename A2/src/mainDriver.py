@@ -12,7 +12,7 @@ def cls():
 def main():
 	random.seed()
 	rows = random.randint(20, 40)
-	cols = random.randint(50, 100)
+	cols = random.randint(50, 90)
 
 	ourMap = Map(cols, rows)
 	for i in range(5):
