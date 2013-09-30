@@ -1,5 +1,6 @@
 import sys
 sys.path.append('../')
+sys.path.append(['../','..\\'][os.name == 'nt'])
 
 from mapSearchProblem import *
 from searchAlgoriths import *
@@ -12,8 +13,8 @@ class TerminalSearch:
 		initial = (0,0)
 		goal = (w-1, h-1)
 		self.problem = mapSearchProblem(initial, goal, w, h, world)
-
-	def initMatPlot(self):
+		self.map = self.table
+		
 		
 	def BFS(self):pass
 
@@ -26,7 +27,7 @@ class TerminalSearch:
 	def hill(self):pass
 
 	def runBFS(self):
-		print '''BFS'''
+		pass
 		best_first_graph_search(self.problem, node.depth)
 	def runStar():pass
 	def runGreed():pass

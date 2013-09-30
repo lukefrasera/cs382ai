@@ -4,6 +4,7 @@ sys.path.append(['../','..\\'][os.name == 'nt'])
 
 # import dirplay class
 from mapGenerator import Map
+from terminalDisplay.display import TerminalSearch
 
 def cls():
     os.system(['clear','cls'][os.name == 'nt'])
@@ -13,7 +14,7 @@ def main():
 	rows = random.randint(60, 150)
 	cols = random.randint(60, 150)
 	ourMap = Map(rows, cols)
-	plot = matplotSearch(rows,cols,ourMap)
+	plot = TerminalSearch(rows, cols, ourMap)
 	#main program loop
 	while(True):
 		# clear console
