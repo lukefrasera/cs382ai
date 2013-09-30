@@ -4,7 +4,6 @@ sys.path.append(['../','..\\'][os.name == 'nt'])
 
 # import dirplay class
 from mapGenerator import Map
-from matplotdisplay.search import matplotSearch
 
 def cls():
     os.system(['clear','cls'][os.name == 'nt'])
@@ -44,7 +43,7 @@ def main():
 			# hill climbing search
 		if(input == '5'):
 			plot.runHill()
-			
+
 		if(input == '6'):
 			break
 			
