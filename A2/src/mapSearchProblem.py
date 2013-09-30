@@ -1,7 +1,7 @@
-import sys
-sys.path.append('../')
+import sys, os
+sys.path.append(['../','..\\'][os.name == 'nt'])
 
-from searchAlgoriths import Problem	
+from searchAlgorithms.searchAlgoriths import Problem	
 
 class mapSearchProblem(Problem):
 	def __init__(self, initial, goal, rows, cols, _map):

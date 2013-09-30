@@ -1,19 +1,21 @@
-import sys
+import sys, os
 sys.path.append(['../','..\\'][os.name == 'nt'])
 
 from mapSearchProblem import *
-from searchAlgoriths import *
+from searchAlgorithms.searchAlgoriths import *
 
 class TerminalSearch:
-	def __init__(self, w,h,table, world):
+	def __init__(self, w,h,table):
 		self.w = w
 		self.h = h
 		self.table = table
 		initial = (0,0)
 		goal = (w-1, h-1)
-		self.problem = mapSearchProblem(initial, goal, w, h, world)
+		self.problem = mapSearchProblem(initial, goal, w, h, self.table)
 		self.map = self.table
-		
+	
+	def nodeDepth(self, node):
+		return node.depth
 		
 	def BFS(self):pass
 
@@ -26,8 +28,8 @@ class TerminalSearch:
 	def hill(self):pass
 
 	def runBFS(self):
-		pass
-		best_first_graph_search(self.problem, node.depth)
+		best_first_graph_search(self.problem, self.nodeDepth)
+
 	def runStar():pass
 	def runGreed():pass
 	def runUCS():pass
