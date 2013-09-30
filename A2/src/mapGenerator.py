@@ -1,4 +1,5 @@
 import random
+import curses
 
 class Map:
     def __init__(self, l, w):
@@ -69,4 +70,4 @@ if __name__ == "__main__" :
     world = Map(maxCols, maxRows)
     for x in range(5):
         tmp = world.makeRectObstacle()
-    print world
+    world.display()
