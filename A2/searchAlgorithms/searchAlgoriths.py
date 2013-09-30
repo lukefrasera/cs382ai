@@ -230,7 +230,9 @@ def best_first_graph_search(problem, f):
         if problem.goal_test(node.state):
             print problem.map.display()
             return node
-        problem.map[node.state[0]][node.state[1]] = 9
+        x = node.state[0]
+        y = node.state[1]
+        problem.map[x][y] = 9
         explored.add(node.state)
         for child in node.expand(problem):
             if problem.map[child.state[0]][child.state[1]] < 9:
