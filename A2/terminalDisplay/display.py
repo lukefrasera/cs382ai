@@ -1,12 +1,17 @@
+import sys
+sys.path.append(['../','..\\'][os.name == 'nt'])
 
-lass TerminalSearch:
+
+class TerminalSearch:
 	def __init__(self, w,h,table):
 		self.w = w
 		self.h = h
 		self.table = table
-		# self.problem = Problem('''''')
+		self.problem = 
 
-	def initMatPlot(self):
+	def initTable(self):
+		self.map = self.table
+		
 		
 	def BFS(self):pass
 
@@ -19,6 +24,7 @@ lass TerminalSearch:
 	def hill(self):pass
 
 	def runBFS(self):
+		pass
 		
 	def runStar():pass
 	def runGreed():pass

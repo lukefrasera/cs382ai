@@ -18,7 +18,7 @@ class mapSearchProblem(Problem):
 			x = action[0]+state[0]
 			y = action[1]+state[1]
 
-			if self.map[x + x*y] != 0 or x==self.cols or y==self.rows:
+			if x>=self.cols or y>=self.rows or self.map[x][y] != 0:
 				actionlist.remove(action)
 		return actionList
 
