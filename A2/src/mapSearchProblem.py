@@ -52,4 +52,4 @@ class mapProblem(Problem):
 		x = self.goal[0] - state[0]
 		y = self.goal[1] - state[1]
 
-		return math.sqrt(x*x + y*y)
+		return 1/(math.sqrt(x*x + y*y)+1)
