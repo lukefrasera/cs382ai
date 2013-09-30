@@ -7,9 +7,6 @@ class Map:
         self.maxCols = l
         self.blank()
 
-    def __getitem__(self, state):
-        print "STOP GETTING MY ITEM!"
-
     def blank(self):
         self.map = [[0 for x in range (self.maxCols)] for x in range(self.maxRows)]
 

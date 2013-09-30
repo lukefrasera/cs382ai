@@ -232,11 +232,11 @@ def best_first_graph_search(problem, f):
             return node
         x = node.state[0]
         y = node.state[1]
-        problem.map[x][y] = 9
+        problem.map.map[x][y] = 9
         explored.add(node.state)
         for child in node.expand(problem):
-            if problem.map[child.state[0]][child.state[1]] < 9:
-                problem.map[child.state[0]][child.state[1]] += 1
+            if problem.map.map[child.state[0]][child.state[1]] < 9:
+                problem.map.map[child.state[0]][child.state[1]] += 1
             if child.state not in explored and child not in frontier:
                 frontier.append(child)
             elif child in frontier:
