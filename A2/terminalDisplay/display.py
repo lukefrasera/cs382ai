@@ -39,6 +39,8 @@ class TerminalSearch:
 		y = self.goal[1] - node.state[1]
 
 		return math.sqrt(x*x + y*y)
+
+		return math.sqrt(x*x + y*y)
 		
 
 	def runBFS(self):
@@ -94,7 +96,7 @@ class TerminalSearch:
 
 	def runHill(self):
 		self.problem = mapProblem(self.initial, self.goal, self.w, self.h, self.map)
-		state=  hill_climbing(self.problem)
+		state =  hill_climbing(self.problem)
 
 		if state == None:
 			print 'No Path Possible'

@@ -49,7 +49,7 @@ class mapProblem(Problem):
 		return x,y
 
 	def value(self, state):
-		x = state[0]
-		y = state[1]
+		x = self.goal[0] - state[0]
+		y = self.goal[1] - state[1]
 
 		return math.sqrt(x*x + y*y)
