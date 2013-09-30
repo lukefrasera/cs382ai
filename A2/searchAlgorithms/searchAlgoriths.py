@@ -6,7 +6,7 @@ functions."""
 
 from __future__ import generators
 from utils import *
-import math, random, sys, time, bisect, string
+import math, random, sys, os, time, bisect, string
 from Queue import *
 import operator, copy, os.path, re
 
@@ -210,6 +210,24 @@ def breadth_first_search(problem):
                 frontier.append(child)
     return None
 
+def display(map):
+        '''Display for curses'''
+        string = ''
+        for l in range(len(map)):
+            for w in range(len(map[0])):
+                if map[l][w] < 0:
+                    string = string +'*' # expanded
+                elif map[l][w] == 9:
+                    string = string +'0' # path
+                elif map[l][w] > 0:
+                    string = string +'+' # obstacle
+                elif map[l][w] == 0:
+                    string = string +'.'
+            string = string + '\n'
+        return string
+def cls():
+    os.system(['clear','cls'][os.name == 'nt'])
+
 def best_first_graph_search(problem, f):
     """Search the nodes with the lowest f scores first.
     You specify the function f(node) that you want to minimize; for example,
@@ -228,15 +246,12 @@ def best_first_graph_search(problem, f):
     while frontier:
         node = frontier.pop()
         if problem.goal_test(node.state):
-            print problem.map.display()
-            return node
-        x = node.state[0]
-        y = node.state[1]
-        problem.map.map[x][y] = 9
+            return node,problem.map
         explored.add(node.state)
+        problem.map[node.state[0]][node.state[1]] = -1
+        cls()
+        print display(problem.map)
         for child in node.expand(problem):
-            if problem.map.map[child.state[0]][child.state[1]] < 9:
-                problem.map.map[child.state[0]][child.state[1]] += 1
             if child.state not in explored and child not in frontier:
                 frontier.append(child)
             elif child in frontier:

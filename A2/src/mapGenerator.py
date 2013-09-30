@@ -7,6 +7,7 @@ class Map:
         self.maxCols = l
         self.blank()
 
+
     def blank(self):
         self.map = [[0 for x in range (self.maxCols)] for x in range(self.maxRows)]
 
@@ -42,11 +43,14 @@ class Map:
         for l in range(self.maxRows):
             for w in range(self.maxCols):
                 if self.map[l][w] < 0:
-                    string = string +'.' # expanded
+                    string = string +'8' # expanded
                 elif self.map[l][w] == 9:
                     string = string +'0' # path
                 elif self.map[l][w] > 0:
                     string = string +'+' # obstacle
+                elif self.map[l][w] == 0:
+                    string = string +'.'
+            string = string + '\n'
         return string
 
     def __repr__(self):
