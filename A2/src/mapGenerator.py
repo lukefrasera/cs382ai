@@ -36,16 +36,18 @@ class Map:
             for c in range(self.maxCols):
                 self.map[r][c] = anotherWorld.map[r][c]
 
-    def display(self, stdscr):
+    def display(self):
         '''Display for curses'''
+        string = ''
         for l in range(self.maxRows):
             for w in range(self.maxCols):
                 if self.map[l][w] < 0:
-                    stdscr.addch(l, w, '.') # expanded
+                    string = string +'.' # expanded
                 elif self.map[l][w] == 9:
-                    stdscr.addch(l, w, '0') # path
+                    string = string +'0' # path
                 elif self.map[l][w] > 0:
-                    stdscr.addch(l, w, '+') # obstacle
+                    string = string +'+' # obstacle
+        return string
 
     def __repr__(self):
         '''For printing'''

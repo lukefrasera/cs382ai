@@ -1,5 +1,4 @@
 import sys
-sys.path.append('../')
 sys.path.append(['../','..\\'][os.name == 'nt'])
 
 from mapSearchProblem import *
