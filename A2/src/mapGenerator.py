@@ -37,21 +37,6 @@ class Map:
             for c in range(self.maxCols):
                 self.map[r][c] = anotherWorld.map[r][c]
 
-    def display(self):
-        '''Display for curses'''
-        string = ''
-        for l in range(self.maxRows):
-            for w in range(self.maxCols):
-                if self.map[l][w] < 0:
-                    string = string +'8' # expanded
-                elif self.map[l][w] == 9:
-                    string = string +'0' # path
-                elif self.map[l][w] > 0:
-                    string = string +'+' # obstacle
-                elif self.map[l][w] == 0:
-                    string = string +'.'
-            string = string + '\n'
-        return string
 
     def __repr__(self):
         '''For printing'''
@@ -66,13 +51,3 @@ class Map:
                     out = out + str(self.map[l][w])
             out = out + " |\n"
         return out
-                
-# For testing this code
-if __name__ == "__main__" :
-    random.seed()
-    maxCols = 80
-    maxRows = 30
-    world = Map(maxCols, maxRows)
-    for x in range(5):
-        tmp = world.makeRectObstacle()
-    world.display()
