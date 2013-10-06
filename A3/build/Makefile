@@ -1,0 +1,16 @@
+CC=g++
+CFLAGS=-c -Wall
+LDFLAGS=
+SOURCES=main.cpp
+SOURCEDIR=../src/
+OBJECTS=$(SOURCEDIR)$(SOURCES:.cpp=.o)
+PRECOMPOBJ=../src/objectFiles/f0.o
+EXECUTABLE=a.out
+
+all: $(SOURCEDIR)$(SOURCES) $(EXECUTABLE)
+	
+$(EXECUTABLE): $(OBJECTS) 
+	$(CC) $(LDFLAGS) $(OBJECTS) $(PRECOMPOBJ) -o $@
+
+$(OBJECTS):
+	$(CC) $(CFLAGS) $(SOURCEDIR)$(SOURCES) -o $@
