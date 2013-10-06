@@ -61,8 +61,13 @@ void menu(int *bitStream)
 //********************************************************************************  
 double hill_Climber(int *bitStream)
 {
-	double result;
+	double result, previousResult;
 	int *previous, *next;
+	previous = new int[150];
+	for(int hillCounter = 0; hillCounter < 150; hillCounter++)
+	{
+		previous[hillCounter] = bitStream[hillCounter];
+	}	
 	
 	return result;
 }
@@ -75,12 +80,17 @@ double hill_Climber(int *bitStream)
 //********************************************************************************  
 int *successors(int *previous)
 {
-	int random;
+	int random, *next;
+	next = new int[150];
+	for(int sucCounter = 0; sucCounter < 150; sucCounter++)
+	{
+		next[sucCounter] = previous[sucCounter];
+	}
 	random = rand() % 150;  //generate a random number between 0 and 149
 	//flip the bit. 
-	if (previous[random] == 0)
-		previous[random] = 1;
+	if (next[random] == 0)
+		next[random] = 1;
 	else
-		previous[random] = 0;
-	return previous[random];
+		next[random] = 0;
+	return next;
 }
