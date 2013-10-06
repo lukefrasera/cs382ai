@@ -1,12 +1,16 @@
 #include <iostream>
+#include <time>
 using namespace std;
 
 double eval(int *pj);
 double hill_Climber(int *bitStream);
 void menu(int *bitStream);
+double GA(int *bitStream);
+int *successors(int *previous);
 
 int main()
 {
+	srand(time(NULL));
 	int stream[150];
 	for(int counter = 0; counter < 150; counter++)
 	{
@@ -15,7 +19,13 @@ int main()
 	menu(stream);
 	return 0;
 }
-
+//******************************************************************************
+//Function name: menu
+//Return type:      void
+//Arguments:       int *
+//Purpose:			  Display the menu and call the separate algorithms 
+//						  depending on user selection.
+//********************************************************************************  
 void menu(int *bitStream)
 {
 	int choice;
@@ -42,9 +52,35 @@ void menu(int *bitStream)
 		}
 	}
 }
-
+//******************************************************************************
+//Function name: hill_Climber
+//Return type:      double
+//Arguments:       int *
+//Purpose:			  Run eval on the bitStream and try to maximize the result
+//						  through the use of a hill climber algorithm.
+//********************************************************************************  
 double hill_Climber(int *bitStream)
 {
 	double result;
+	int *previous, *next;
+	
 	return result;
+}
+//******************************************************************************
+//Function name: successors
+//Return type:      int *
+//Arguments:       int *
+//Purpose:			  Helper function for hill_Climber. Calculates successor
+//						  using a random number.
+//********************************************************************************  
+int *successors(int *previous)
+{
+	int random;
+	random = rand() % 150;  //generate a random number between 0 and 149
+	//flip the bit. 
+	if (previous[random] == 0)
+		previous[random] = 1;
+	else
+		previous[random] = 0;
+	return previous[random];
 }
