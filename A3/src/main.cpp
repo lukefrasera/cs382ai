@@ -25,7 +25,7 @@ int main()
 //Arguments:       int *
 //Purpose:			  Display the menu and call the separate algorithms 
 //						  depending on user selection.
-//********************************************************************************  
+//******************************************************************************
 void menu(int *bitStream)
 {
 	int choice;
@@ -58,7 +58,7 @@ void menu(int *bitStream)
 //Arguments:       int *
 //Purpose:			  Run eval on the bitStream and try to maximize the result
 //						  through the use of a hill climber algorithm.
-//********************************************************************************  
+//******************************************************************************
 double hill_Climber(int *bitStream)
 {
 	double result, previousResult;
@@ -77,7 +77,7 @@ double hill_Climber(int *bitStream)
 //Arguments:       int *
 //Purpose:			  Helper function for hill_Climber. Calculates successor
 //						  using a random number.
-//********************************************************************************  
+//******************************************************************************
 int *successors(int *previous)
 {
 	int random, *next;
