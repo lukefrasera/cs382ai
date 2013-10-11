@@ -1,5 +1,6 @@
 #include <iostream>
 #include <time>
+
 using namespace std;
 
 double eval(int *pj);
@@ -8,6 +9,33 @@ void menu(int *bitStream);
 double GA(int *bitStream);
 int *successors(int *previous);
 
+
+
+typedef enum seeds_{
+	SEED_0 = 9134028123
+	SEED_1
+	SEED_2
+	SEED_3
+	SEED_4
+	SEED_5
+	SEED_6
+	SEED_7
+	SEED_8
+	SEED_9
+}seeds;
+
+unsigned int SEED[] = {
+	0234928198,
+	0340287349,
+	9023028094,
+	0202709292,
+	0234234830,
+	0948303342,
+	9287699872,
+	9472958309,
+	2229874468,
+	0948459893
+}
 int main()
 {
 	srand(time(NULL));
