@@ -1,16 +1,17 @@
 #include <iostream>
-#include <time>
+#include <stdlib.h>
+#include <time.h>
 
 using namespace std;
 
 double eval(int *pj);
-double hill_Climber(int *bitStream);
-void menu(int *bitStream);
-double GA(int *bitStream);
+double hill_Climber(int *bitStream, int numIterations);
+void menu(int *bitStream, int numIterations);
+//double GA(int *bitStream);
 int *successors(int *previous);
 
 
-
+/*
 typedef enum seeds_{
 	SEED_0 = 9134028123
 	SEED_1
@@ -36,15 +37,26 @@ unsigned int SEED[] = {
 	2229874468,
 	0948459893
 }
-int main()
+*/
+int main(int argc, char* argv[])
 {
+	double iterations;
+	if(argc != 0)
+	{
+		iterations = (double)(*argv[1] - '0');
+	}
+	else
+	{
+		//if no argument is passed, set iterations to default value
+		iterations = 1000;
+	}
 	srand(time(NULL));
 	int stream[150];
 	for(int counter = 0; counter < 150; counter++)
 	{
 		stream[counter] = 1;
 	}
-	menu(stream);
+	menu(stream, iterations);
 	return 0;
 }
 //******************************************************************************
@@ -54,7 +66,7 @@ int main()
 //Purpose:			  Display the menu and call the separate algorithms 
 //						  depending on user selection.
 //******************************************************************************
-void menu(int *bitStream)
+void menu(int *bitStream, int numIterations)
 {
 	int choice;
 	bool exit = false;
@@ -69,10 +81,10 @@ void menu(int *bitStream)
 		switch(choice)
 		{
 			case 1:
-				hillClimber(bitStream);
-				break
+				cout << hill_Climber(bitStream, numIterations) << endl;
+				break;
 			case 2:
-				GA(bitStream);
+//				GA(bitStream);
 				break;
 			case 3:
 				exit = true;
@@ -87,7 +99,7 @@ void menu(int *bitStream)
 //Purpose:			  Run eval on the bitStream and try to maximize the result
 //						  through the use of a hill climber algorithm.
 //******************************************************************************
-double hill_Climber(int *bitStream)
+double hill_Climber(int *bitStream, int numIterations)
 {
 	double result, previousResult;
 	int *previous, *next;
@@ -95,9 +107,24 @@ double hill_Climber(int *bitStream)
 	for(int hillCounter = 0; hillCounter < 150; hillCounter++)
 	{
 		previous[hillCounter] = bitStream[hillCounter];
-	}	
-	
-	return result;
+	}
+	int counter = 0;
+	previousResult = eval(previous);
+	while(counter < numIterations - 1)
+	{
+		next = successors(previous);
+		result = eval(next);
+		if(result > previousResult)
+		{
+			for(int copyCounter = 0; copyCounter < 150; copyCounter++)
+			{
+				previous[copyCounter] = next[copyCounter];
+				previousResult = result;
+			}
+		}
+		counter++;
+	}
+	return previousResult;
 }
 //******************************************************************************
 //Function name: successors
