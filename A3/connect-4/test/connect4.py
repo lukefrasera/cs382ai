@@ -33,6 +33,14 @@ class ConnectFour(object):
       else:
          return None
  
+def is_game_over(self):
+lstDirs = [(1,0),(0,1),(1,1),(1,-1)]
+for i in range(6):
+for j in range(7):
+for direction in lstDirs:
+if self.find_victory(i, j, direction[0], direction[1]) != None:
+return self.find_victory(i, j, direction[0], direction[1])
+
    def is_draw(self):
       for j in range(7):
          if self.board[5][j] != None:
@@ -41,13 +49,6 @@ class ConnectFour(object):
             return False
       return True
  
-   def is_game_over(self):
-      lstDirs = [(1,0),(0,1),(1,1),(1,-1)]
-      for i in range(6):
-         for j in range(7):
-            for direction in lstDirs:
-               if self.find_victory(i, j, direction[0], direction[1]) != None:
-                  return self.find_victory(i, j, direction[0], direction[1])
  
    def make_move(self, player, col):
       for i in range(6):
