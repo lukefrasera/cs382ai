@@ -16,4 +16,4 @@ $(OBJECTS):
 	$(CC) $(CFLAGS) $(SOURCEDIR)$(SOURCES) -o $@
 
 clean:
-	rm $(SOURCEDIR)main.o
+	rm $(OBJECTS)
