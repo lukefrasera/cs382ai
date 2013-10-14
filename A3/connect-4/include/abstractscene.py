@@ -1,67 +1,62 @@
-from OpenGL.GLUT import *
-from OpenGL.GLU import *
-from OpenGL.GL import *
 import sys
 
+try:
+	from OpenGL.GLUT import *
+	from OpenGL.GL import *
+	from OpenGL.GLU import *
+except:
+	print '''
+ERROR: PyOpenGL not installed properly.
+		'''
 
-class abstractScene:
+
+class abstractScene(object):
 	def __init__(self):
-		self.w = 400
-		self.h = 400
+		self.w = 500
+		self.h = 500
+
 	def initialize(self):
-		glClearColor(0.0,0.0,0.0,0.0)
-	def update(self):pass
+		abstract
+	def update(self):
+		abstract
 	def render(self):
-		glClear(GL_COLOR_BUFFER_BIT)
-		glLoadIdentity()
-		glFlush()
+		abstract
 	def resize(self, w, h):
-		glViewport (0, 0, w, h)
-		glMatrixMode (GL_PROJECTION)
-		glLoadIdentity ()
-		glFrustum (-1.0, 1.0, -1.0, 1.0, 1.5, 20.0)
-		glMatrixMode (GL_MODELVIEW)
-		print "Hello"
+		abstract
+	def glutKeyPressEvent(self, key, x, y):
+		abstract
+	def glutKeyReleaseEvent(self, key, x, y):
+		abstract
+	def glutMousePassiveMoveEvent(self, x, y):
+		abstract
+	def glutMouseActiveMoveEvent(self, x, y):
+		abstract
+	def glutMouseClickEvent(self, button, state, x, y):
+		abstract
 
-	def glutKeyPress(self, key, x, y):
-		print "hello"
-	def glutKeyRelease(self, key, x, y):
-		print "there"
-	def glutMouse(self, x, y):
-		print x, y
-	def glutMouseClick(self, button, state, x, y):
-		print "hello"
-
-class glapplication:
+class glApplication(object):
 	def __init__(self, scene):
 		self.scene = scene
 
 		self.initializeScene()
 		self.initializeCallbacks()
+		glutMainLoop()
 
 	def initializeScene(self):
 		glutInit(sys.argv)
-		glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH)
+		glutInitDisplayMode(GLUT_SINGLE | GLUT_DEPTH | GLUT_RGBA)
 		glutInitWindowSize(self.scene.w, self.scene.h)
 		glutCreateWindow("Connect 4")
-		self.initializeCallbacks()
-		glutMainLoop()
+		self.scene.initialize()
 
 	def cleanupScene(self):pass
+
 	def initializeCallbacks(self):
 		glutDisplayFunc(self.scene.render)
 		glutReshapeFunc(self.scene.resize)
 		glutIdleFunc(self.scene.update)
-		glutKeyboardFunc(self.scene.glutKeyPress)
-		glutKeyboardUpFunc(self.scene.glutKeyRelease)
-		glutMouseFunc(self.scene.glutMouseClick)
-		glutPassiveMotionFunc(self.scene.glutMouse)
-
-
-def main():
-	scene = abstractScene()
-	app = glapplication(scene)
-
-
-if __name__ == '__main__':
-	main()
+		glutKeyboardFunc(self.scene.glutKeyPressEvent)
+		glutKeyboardUpFunc(self.scene.glutKeyReleaseEvent)
+		glutMouseFunc(self.scene.glutMouseClickEvent)
+		glutPassiveMotionFunc(self.scene.glutMousePassiveMoveEvent)
+		glutMotionFunc(self.scene.glutMouseActiveMoveEvent)

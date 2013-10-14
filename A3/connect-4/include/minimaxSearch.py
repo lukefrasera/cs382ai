@@ -174,41 +174,6 @@ class Game:
     def __repr__(self):
         return '<%s>' % self.__class__.__name__
 
-class Fig52Game(Game):
-    """The game represented in [Fig. 5.2]. Serves as a simple test case.
-    >>> g = Fig52Game()
-    >>> minimax_decision('A', g)
-    'a1'
-    >>> alphabeta_full_search('A', g)
-    'a1'
-    >>> alphabeta_search('A', g)
-    'a1'
-    """
-    succs = dict(A=dict(a1='B', a2='C', a3='D'),
-                 B=dict(b1='B1', b2='B2', b3='B3'),
-                 C=dict(c1='C1', c2='C2', c3='C3'),
-                 D=dict(d1='D1', d2='D2', d3='D3'))
-    utils = Dict(B1=3, B2=12, B3=8, C1=2, C2=4, C3=6, D1=14, D2=5, D3=2)
-    initial = 'A'
-
-    def actions(self, state):
-        return self.succs.get(state, {}).keys()
-
-    def result(self, state, move):
-        return self.succs[state][move]
-
-    def utility(self, state, player):
-        if player == 'MAX':
-            return self.utils[state]
-        else:
-            return -self.utils[state]
-
-    def terminal_test(self, state):
-        return state not in ('A', 'B', 'C', 'D')
-
-    def to_move(self, state):
-        return if_(state in 'BCD', 'MIN', 'MAX')
-
 class TicTacToe(Game):
     """Play TicTacToe on an h x v board, with Max (first player) playing 'X'.
     A state has the player to move, a cached utility, a list of moves in
@@ -283,10 +248,3 @@ class ConnectFour(TicTacToe):
     def actions(self, state):
         return [(x, y) for (x, y) in state.moves
                 if y == 0 or (x, y-1) in state.board]
-
-__doc__ += random_tests("""
->>> play_game(Fig52Game(), random_player, random_player)
-6
->>> play_game(TicTacToe(), random_player, random_player)
-0
-""")
