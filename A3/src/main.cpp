@@ -36,14 +36,15 @@ unsigned int SEED[] = {
 	9472958309,
 	2229874468,
 	0948459893
-}
+}a
 */
 int main(int argc, char* argv[])
 {
 	double iterations;
+	cout << argv[1];
 	if(argc != 0)
 	{
-		iterations = (double)(*argv[1] - '0');
+		iterations = (double)(*argv[1]);
 	}
 	else
 	{
@@ -110,17 +111,22 @@ double hill_Climber(int *bitStream, int numIterations)
 	}
 	int counter = 0;
 	previousResult = eval(previous);
+	cout << "hello" << endl;
+	cout << numIterations;
 	while(counter < numIterations - 1)
 	{
 		next = successors(previous);
 		result = eval(next);
-		if(result > previousResult)
+		cout << "bye" << endl;
+		if(result >= previousResult)
 		{
 			for(int copyCounter = 0; copyCounter < 150; copyCounter++)
 			{
 				previous[copyCounter] = next[copyCounter];
+				cout << previous[copyCounter] << endl;
 				previousResult = result;
 			}
+			cout << endl;
 		}
 		counter++;
 	}

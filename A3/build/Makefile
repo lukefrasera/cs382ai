@@ -4,7 +4,7 @@ LDFLAGS=
 SOURCES=main.cpp
 SOURCEDIR=../src/
 OBJECTS=$(SOURCEDIR)$(SOURCES:.cpp=.o)
-PRECOMPOBJ=../src/objectFiles/f1.o
+PRECOMPOBJ=../src/objectFiles/f11.o
 EXECUTABLE=a.out
 
 all: $(SOURCEDIR)$(SOURCES) $(EXECUTABLE)
