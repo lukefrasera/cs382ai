@@ -93,7 +93,7 @@ def alphabeta_search(state, game, d=4, cutoff_test=None, eval_fn=None):
         for a in game.actions(state):
             v = min(v, max_value(game.result(state, a),
                                  alpha, beta, depth+1))
-            if v <= alpha:
+            if v <= alpha:max_value
                 return v
             beta = min(beta, v)
         return v
@@ -245,6 +245,50 @@ class ConnectFour(TicTacToe):
     def __init__(self, h=7, v=6, k=4):
         TicTacToe.__init__(self, h, v, k)
 
+    def terminal_test(self, state):
+        "A state is terminal if it is won or there are no empty squares."
+        return state.utility == infinity or state.utility == -infinity or len(state.moves) == 0
+
     def actions(self, state):
         return [(x, y) for (x, y) in state.moves
                 if y == 0 or (x, y-1) in state.board]
+
+    def compute_utility(self, board, move, player):
+        score=0
+
+        if each_dir_k(board, move, player, self.k):
+            return if_(player == 'X', infinity, -infinity)
+        for i in reversed(range(1, self.k)):
+            if each_dir_k(board, move, player, i):
+                for j in range(1, i+1):
+                    score = score + j ^ 2 * 10
+                break
+        return if_(player == 'X', score, -score)
+
+    def each_dir_k(self, board, move, player, k):
+        n=0
+        if k_in_row(board, move, player, (0,1), k):
+            n+=1
+        if k_in_row(noard, move, player, (1,0), k):
+            n+=1
+        if k_in_row(noard, move, player, (1,-1), k):
+            n+=1
+        if k_in_row(noard, move, player, (1,1), k):
+            n+=1
+        return n
+
+
+    def k_in_row(self, board, move, player, (delta_x, delta_y), k):
+        "Return true if there is a line through move on board for player."
+        x, y = move
+        n = 0 # n is number of moves in row
+        while board.get((x, y)) == player:
+            n += 1
+            x, y = x + delta_x, y + delta_y
+        x, y = move
+        while board.get((x, y)) == player:
+            n += 1
+            x, y = x - delta_x, y - delta_y
+        n -= 1 # Because we counted move itself twice
+        
+        return n>=k

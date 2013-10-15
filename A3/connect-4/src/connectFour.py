@@ -14,7 +14,7 @@ def main(argv):
 
 	# SET DEFUALT VALUES
 	depth	=9
-	pruning	=False
+	pruning	=True
 	k		=4
 	columns	=6
 	rows	=7
