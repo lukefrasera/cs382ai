@@ -12,16 +12,18 @@ def main(argv):
 		sys.exit(2)
 
 	# SET DEFUALT VALUES
+	dLimit = False
 	depth	=9
-	pruning	=True
+	pruning	=False
 	k		=4
-	columns	=6
-	rows	=7
+	columns	=7
+	rows	=6
 
 	# HANDLE COMMANDLINE OPTIONS
 	for opt, arg, in opts:
 		if   opt in ("-d", "--depth"):
 			depth = int(arg)
+			dLimit = True
 
 		elif opt in ("-A", "--alphabeta"):
 			pruning = True
@@ -37,7 +39,18 @@ def main(argv):
 	
 	# START GAME AND DISPLAY
 	# play_game(TicTacToe(), alphabeta_search, query_player)
-	print play_game(ConnectFour(), human_player, alphabeta_player)
+
+	
+	if pruning == True:
+		if dLimit == True:
+			print play_game_depth(ConnectFour(h=columns, v=rows, k=k), depth, alphabeta_player, human_player)
+		else:
+			print play_game(ConnectFour(h=columns, v=rows, k=k), alphabeta_full_search_player, human_player)
+	elif dLimit== True:
+		print play_game_depth(ConnectFour(h=columns, v=rows, k=k), depth, minimax_decision_depth_player, human_player)
+	else:
+		print play_game(ConnectFour(h=columns, v=rows, k=k), minimax_decision_player, human_player)
+
 	
 
 

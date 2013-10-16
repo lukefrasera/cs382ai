@@ -33,6 +33,33 @@ def minimax_decision(state, game):
     return argmax(game.actions(state),
                   lambda a: min_value(game.result(state, a)))
 
+def minimax_decision_depth(state, game, d):
+    """Given a state in a game, calculate the best move by searching
+    forward all the way to the terminal states. [Fig. 5.3]"""
+
+    player = game.to_move(state)
+
+    def max_value(state):
+        if cutoff_test(state, game):
+            return game.utility(state, player)
+        v = -infinity
+        for a in game.actions(state):
+            v = max(v, min_value(game.result(state, a)))
+        return v
+
+    def min_value(state):
+        if cutoff_test(state, game):
+            return game.utility(state, player)
+        v = infinity
+        for a in game.actions(state):
+            v = min(v, max_value(game.result(state, a)))
+        return v
+
+    cutoff_test = (lambda state,depth: depth>d or game.terminal_test(state))
+    # Body of minimax_decision:
+    return argmax(game.actions(state),
+                  lambda a: min_value(game.result(state, a)))
+
 #______________________________________________________________________________
 
 def alphabeta_full_search(state, game):
@@ -113,7 +140,8 @@ def query_player(game, state):
     "Make a move by querying standard input."
     game.display(state)
     return num_or_str(raw_input('Your move? '))
-def human_player(game, state):
+
+def human_player(game, state, d=None):
     game.display(state)
     column = num_or_str(raw_input('Select Column 1-%s' % game.h))
     moves = game.actions(state)
@@ -126,8 +154,14 @@ def random_player(game, state):
     "A player that chooses a legal move at random."
     return random.choice(game.actions(state))
 
-def alphabeta_player(game, state):
-    return alphabeta_search(state, game)
+def alphabeta_player(game, state, d):
+    return alphabeta_search(state, game, d)
+def alphabeta_full_search_player(game, state):
+    return alphabeta_full_search(state, game)
+def minimax_decision_player(game, state):
+    return minimax_decision(game, state)
+def minimax_decision_depth_player(game, state, d):
+    return minimax_decision_depth(game, state, d)
 
 def play_game(game, *players):
     """Play an n-person, move-alternating game.
@@ -139,6 +173,25 @@ def play_game(game, *players):
         for player in players:
             while(True):
                 move = player(game, state)
+                oldstate = state
+                state = game.result(state, move)
+                if oldstate != state:
+                    break
+                print "illegal Move"
+
+            if game.terminal_test(state):
+                return game.utility(state, game.to_move(game.initial))
+
+def play_game_depth(game, d,  *players):
+    """Play an n-person, move-alternating game.
+    >>> play_game(Fig52Game(), alphabeta_player, alphabeta_player)
+    3
+    """
+    state = game.initial
+    while True:
+        for player in players:
+            while(True):
+                move = player(game, state, d=d)
                 oldstate = state
                 state = game.result(state, move)
                 print game.actions(state)
@@ -261,6 +314,8 @@ class TicTacToe(Game):
             for x in range(1, self.h+1):
                 print board.get((x, y), '.'),
             print
+        for x in range(1, self.h+1):
+            sys.stdout.write("%s " %str(x))
 
     def compute_utility(self, board, move, player):
         "If X wins with this move, return 1; if O return -1; else return 0."
@@ -296,6 +351,60 @@ class ConnectFour(TicTacToe):
 
     def actions(self, state):
         return [(x, y) for (x, y) in state.moves if y == 1 or (x, y-1) in state.board]
+
+    def result(self, state, move):
+        if move not in state.moves:
+            return state # Illegal move has no effect
+        board = state.board.copy(); board[move] = state.to_move
+        moves = list(state.moves); moves.remove(move)
+        return Struct(to_move=if_(state.to_move == 'X', 'O', 'X'),
+                      utility=self.compute_utility(board, move, state.to_move, state),
+                      board=board, moves=moves)
+
+    def compute_utility(self, board, move, player, state):
+        "If X wins with this move, return 1; if O return -1; else return 0."
+        L = []
+        score = 0
+        if (self.k_in_row(board, move, player, (0, 1)) or
+            self.k_in_row(board, move, player, (1, 0)) or
+            self.k_in_row(board, move, player, (1, -1)) or
+            self.k_in_row(board, move, player, (1, 1))):
+            return if_(player == 'X', +infinity, -infinity)
+
+        L += self.in_row(board, move, player, (0, 1), state)
+        L += self.in_row(board, move, player, (1, 0), state)
+        L += self.in_row(board, move, player, (1, -1), state)
+        L += self.in_row(board, move, player, (1, 1), state)
+
+        for i in range(1, self.k):
+            score +=  2^i * len([x for x in L if x == i])
+
+        return if_(player == 'X', +score, -score)
+
+    def terminal_test(self, state):
+        "A state is terminal if it is won or there are no empty squares."
+        return state.utility == infinity or state.utility ==-infinity or len(state.moves) == 0
+
+    def in_row(self, board, move, player, (delta_x, delta_y), state):
+        "Return true if there is a line through move on board for player."
+        x, y = move
+        L = []
+        for x,y in self.actions(state):
+            n = 0 # n is number of moves in row
+            while board.get((x, y)) == player:
+                n += 1
+                x, y = x + delta_x, y + delta_y
+            x, y = move
+            while board.get((x, y)) == player:
+                n += 1
+                x, y = x - delta_x, y - delta_y
+            n -= 1 # Because we counted move itself twice
+
+            for i in range(1,n):
+                L.append(i)
+        return L
+            
+
 
 __doc__ += random_tests("""
 >>> play_game(Fig52Game(), random_player, random_player)
