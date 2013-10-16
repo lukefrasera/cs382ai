@@ -4,7 +4,7 @@
 
 int roulette(IPTR pop, double sumFitness, int popsize);
 void crossover(POPULATION *p, IPTR p1, IPTR p2, IPTR c1, IPTR c2);
-double eval(POPULATION *p, IPTR pj);
+double eval(int *);
 
 int generation(POPULATION *p, int t)
 {
@@ -25,12 +25,12 @@ int generation(POPULATION *p, int t)
 
     crossover(p, om1, om2, pi, piPlus1);
 
-    pi->fitness = eval(p, pi); 
+    pi->fitness = eval(pi->chrom); 
     pi->parent1 = p1;
     pi->parent2 = p2;
 
     
-    piPlus1->fitness = eval(p, piPlus1); 
+    piPlus1->fitness = eval(piPlus1->chrom); 
     piPlus1->parent1 = p2;
     piPlus1->parent2 = p1;
 
