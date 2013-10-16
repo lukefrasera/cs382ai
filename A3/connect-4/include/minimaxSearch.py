@@ -71,7 +71,6 @@ def alphabeta_full_search(state, game):
 def alphabeta_search(state, game, d=4, cutoff_test=None, eval_fn=None):
     """Search game to determine best action; use alpha-beta pruning.
     This version cuts off search and uses an evaluation function."""
-
     player = game.to_move(state)
 
     def max_value(state, alpha, beta, depth):
@@ -93,7 +92,7 @@ def alphabeta_search(state, game, d=4, cutoff_test=None, eval_fn=None):
         for a in game.actions(state):
             v = min(v, max_value(game.result(state, a),
                                  alpha, beta, depth+1))
-            if v <= alpha:max_value
+            if v <= alpha:
                 return v
             beta = min(beta, v)
         return v
@@ -114,6 +113,14 @@ def query_player(game, state):
     "Make a move by querying standard input."
     game.display(state)
     return num_or_str(raw_input('Your move? '))
+def human_player(game, state):
+    game.display(state)
+    column = num_or_str(raw_input('Select Column 1-%s' % game.h))
+    moves = game.actions(state)
+    for move in moves:
+        if move[0] == column:
+            return move
+    return None
 
 def random_player(game, state):
     "A player that chooses a legal move at random."
@@ -130,8 +137,15 @@ def play_game(game, *players):
     state = game.initial
     while True:
         for player in players:
-            move = player(game, state)
-            state = game.result(state, move)
+            while(True):
+                move = player(game, state)
+                oldstate = state
+                state = game.result(state, move)
+                print game.actions(state)
+                if oldstate != state:
+                    break
+                print "illegal Move"
+
             if game.terminal_test(state):
                 return game.utility(state, game.to_move(game.initial))
 
@@ -174,6 +188,41 @@ class Game:
     def __repr__(self):
         return '<%s>' % self.__class__.__name__
 
+class Fig52Game(Game):
+    """The game represented in [Fig. 5.2]. Serves as a simple test case.
+    >>> g = Fig52Game()
+    >>> minimax_decision('A', g)
+    'a1'
+    >>> alphabeta_full_search('A', g)
+    'a1'
+    >>> alphabeta_search('A', g)
+    'a1'
+    """
+    succs = dict(A=dict(a1='B', a2='C', a3='D'),
+                 B=dict(b1='B1', b2='B2', b3='B3'),
+                 C=dict(c1='C1', c2='C2', c3='C3'),
+                 D=dict(d1='D1', d2='D2', d3='D3'))
+    utils = Dict(B1=3, B2=12, B3=8, C1=2, C2=4, C3=6, D1=14, D2=5, D3=2)
+    initial = 'A'
+
+    def actions(self, state):
+        return self.succs.get(state, {}).keys()
+
+    def result(self, state, move):
+        return self.succs[state][move]
+
+    def utility(self, state, player):
+        if player == 'MAX':
+            return self.utils[state]
+        else:
+            return -self.utils[state]
+
+    def terminal_test(self, state):
+        return state not in ('A', 'B', 'C', 'D')
+
+    def to_move(self, state):
+        return if_(state in 'BCD', 'MIN', 'MAX')
+
 class TicTacToe(Game):
     """Play TicTacToe on an h x v board, with Max (first player) playing 'X'.
     A state has the player to move, a cached utility, a list of moves in
@@ -208,8 +257,8 @@ class TicTacToe(Game):
 
     def display(self, state):
         board = state.board
-        for x in range(1, self.h+1):
-            for y in range(1, self.v+1):
+        for y in reversed(range(1, self.v+1)):
+            for x in range(1, self.h+1):
                 print board.get((x, y), '.'),
             print
 
@@ -245,50 +294,12 @@ class ConnectFour(TicTacToe):
     def __init__(self, h=7, v=6, k=4):
         TicTacToe.__init__(self, h, v, k)
 
-    def terminal_test(self, state):
-        "A state is terminal if it is won or there are no empty squares."
-        return state.utility == infinity or state.utility == -infinity or len(state.moves) == 0
-
     def actions(self, state):
-        return [(x, y) for (x, y) in state.moves
-                if y == 0 or (x, y-1) in state.board]
+        return [(x, y) for (x, y) in state.moves if y == 1 or (x, y-1) in state.board]
 
-    def compute_utility(self, board, move, player):
-        score=0
-
-        if each_dir_k(board, move, player, self.k):
-            return if_(player == 'X', infinity, -infinity)
-        for i in reversed(range(1, self.k)):
-            if each_dir_k(board, move, player, i):
-                for j in range(1, i+1):
-                    score = score + j ^ 2 * 10
-                break
-        return if_(player == 'X', score, -score)
-
-    def each_dir_k(self, board, move, player, k):
-        n=0
-        if k_in_row(board, move, player, (0,1), k):
-            n+=1
-        if k_in_row(noard, move, player, (1,0), k):
-            n+=1
-        if k_in_row(noard, move, player, (1,-1), k):
-            n+=1
-        if k_in_row(noard, move, player, (1,1), k):
-            n+=1
-        return n
-
-
-    def k_in_row(self, board, move, player, (delta_x, delta_y), k):
-        "Return true if there is a line through move on board for player."
-        x, y = move
-        n = 0 # n is number of moves in row
-        while board.get((x, y)) == player:
-            n += 1
-            x, y = x + delta_x, y + delta_y
-        x, y = move
-        while board.get((x, y)) == player:
-            n += 1
-            x, y = x - delta_x, y - delta_y
-        n -= 1 # Because we counted move itself twice
-        
-        return n>=k
+__doc__ += random_tests("""
+>>> play_game(Fig52Game(), random_player, random_player)
+6
+>>> play_game(TicTacToe(), random_player, random_player)
+0
+""")

@@ -1,7 +1,6 @@
 import sys, os, getopt
 sys.path.append(['../','..\\'][os.name == 'nt'])
-from include.abstractscene import glApplication
-from include.connect4Scene import connect4Scene
+from include.minimaxSearch import *
 
 def main(argv):
 	# PARSE ARGUMENTS
@@ -37,8 +36,9 @@ def main(argv):
 			rows = int(arg)
 	
 	# START GAME AND DISPLAY
-	connectGame = connect4Scene(depth=depth, ab=pruning, k=k, cols=columns, rows=rows)
-	app = glApplication(connectGame)
+	# play_game(TicTacToe(), alphabeta_search, query_player)
+	print play_game(ConnectFour(), human_player, alphabeta_player)
+	
 
 
 
