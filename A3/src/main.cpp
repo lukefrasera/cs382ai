@@ -36,21 +36,21 @@ unsigned int SEED[] = {
 	9472958309,
 	2229874468,
 	0948459893
-}a
+}
 */
 int main(int argc, char* argv[])
 {
-	double iterations;
-	cout << argv[1];
+	int iterations;
 	if(argc != 0)
 	{
-		iterations = (double)(*argv[1]);
+		iterations = (atoi(argv[1]));
 	}
 	else
 	{
 		//if no argument is passed, set iterations to default value
 		iterations = 1000;
 	}
+
 	srand(time(NULL));
 	int stream[150];
 	for(int counter = 0; counter < 150; counter++)
@@ -71,8 +71,12 @@ void menu(int *bitStream, int numIterations)
 {
 	int choice;
 	bool exit = false;
+	int run = 10;
+	int runningTotal = 0;
+	int average = 0;
 	while(!exit)
 	{
+		runningTotal = 0;
 		cout << "Main menu:" << endl;
 		cout << "1. Hill Climber" << endl;
 		cout << "2. GA" << endl;
@@ -82,7 +86,12 @@ void menu(int *bitStream, int numIterations)
 		switch(choice)
 		{
 			case 1:
-				cout << hill_Climber(bitStream, numIterations) << endl;
+				for(int counter = 0; counter < run; counter++)
+				{
+					runningTotal += hill_Climber(bitStream, numIterations);
+				}
+				average = runningTotal / 10;
+				cout << "Average: " << average << endl;
 				break;
 			case 2:
 //				GA(bitStream);
@@ -111,22 +120,18 @@ double hill_Climber(int *bitStream, int numIterations)
 	}
 	int counter = 0;
 	previousResult = eval(previous);
-	cout << "hello" << endl;
-	cout << numIterations;
 	while(counter < numIterations - 1)
 	{
 		next = successors(previous);
 		result = eval(next);
-		cout << "bye" << endl;
 		if(result >= previousResult)
 		{
 			for(int copyCounter = 0; copyCounter < 150; copyCounter++)
 			{
 				previous[copyCounter] = next[copyCounter];
-				cout << previous[copyCounter] << endl;
 				previousResult = result;
 			}
-			cout << endl;
+			delete [] next;
 		}
 		counter++;
 	}

@@ -13,7 +13,7 @@ void statistics(POPULATION *p, IPTR pop);
 
 void rawStat(FILE *fp, POPULATION *p, IPTR pop);
 
-double eval(POPULATION *p, IPTR pi);
+double eval(int *);
 
 
 
@@ -126,7 +126,7 @@ void initPop(POPULATION *p)
       /*      fprintf(stdout, "%1i", pi->chrom[j]); */
     }
     
-    pi->fitness  = eval(p, pi);
+    pi->fitness  = eval(pi->chrom);
 
 
     /*    fprintf(stdout, " : fitness of %i = %lf\n", i, pi->fitness); */
