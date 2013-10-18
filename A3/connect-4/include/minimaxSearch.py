@@ -39,26 +39,26 @@ def minimax_decision_depth(state, game, d):
 
     player = game.to_move(state)
 
-    def max_value(state):
-        if cutoff_test(state, game):
+    def max_value(state, depth):
+        if cutoff_test(state, depth):
             return game.utility(state, player)
         v = -infinity
         for a in game.actions(state):
-            v = max(v, min_value(game.result(state, a)))
+            v = max(v, min_value(game.result(state, a), depth+1))
         return v
 
-    def min_value(state):
-        if cutoff_test(state, game):
+    def min_value(state, depth):
+        if cutoff_test(state, depth):
             return game.utility(state, player)
         v = infinity
         for a in game.actions(state):
-            v = min(v, max_value(game.result(state, a)))
+            v = min(v, max_value(game.result(state, a), depth+1))
         return v
 
     cutoff_test = (lambda state,depth: depth>d or game.terminal_test(state))
     # Body of minimax_decision:
     return argmax(game.actions(state),
-                  lambda a: min_value(game.result(state, a)))
+                  lambda a: min_value(game.result(state, a), 0))
 
 #______________________________________________________________________________
 
@@ -389,6 +389,16 @@ class ConnectFour(TicTacToe):
             score +=  2^i * L1[i-1]
 
         return if_(player == 'X', +score, -score)
+
+    def compute_utility_full(self, board, move, player):
+        "If X wins with this move, return 1; if O return -1; else return 0."
+        if (self.k_in_row(board, move, player, (0, 1)) or
+            self.k_in_row(board, move, player, (1, 0)) or
+            self.k_in_row(board, move, player, (1, -1)) or
+            self.k_in_row(board, move, player, (1, 1))):
+            return if_(player == 'X', infinity, -infinity)
+        else:
+            return 0
 
     def terminal_test(self, state):
         "A state is terminal if it is won or there are no empty squares."
