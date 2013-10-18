@@ -184,6 +184,7 @@ def play_game(game, *players):
                 print "illegal Move"
 
             if game.terminal_test(state):
+                game.display(state)
                 return game.utility(state, game.to_move(game.initial))
 
 def play_game_depth(game, d,  *players):
@@ -390,16 +391,6 @@ class ConnectFour(TicTacToe):
 
         return if_(player == 'X', +score, -score)
 
-    def compute_utility_full(self, board, move, player):
-        "If X wins with this move, return 1; if O return -1; else return 0."
-        if (self.k_in_row(board, move, player, (0, 1)) or
-            self.k_in_row(board, move, player, (1, 0)) or
-            self.k_in_row(board, move, player, (1, -1)) or
-            self.k_in_row(board, move, player, (1, 1))):
-            return if_(player == 'X', infinity, -infinity)
-        else:
-            return 0
-
     def terminal_test(self, state):
         "A state is terminal if it is won or there are no empty squares."
         return state.utility == infinity or state.utility ==-infinity or len(state.moves) == 0
@@ -424,6 +415,19 @@ class ConnectFour(TicTacToe):
         return L
             
 
+
+class ConnectFourFullSearch(ConnectFour):
+    def __init__(self, h=7, v=6, k=4):        ConnectFour.__init__(self, h, v, k)
+
+    def compute_utility(self, board, move, player, state):
+        "If X wins with this move, return 1; if O return -1; else return 0."
+        if (self.k_in_row(board, move, player, (0, 1)) or
+            self.k_in_row(board, move, player, (1, 0)) or
+            self.k_in_row(board, move, player, (1, -1)) or
+            self.k_in_row(board, move, player, (1, 1))):
+            return if_(player == 'X', infinity, -infinity)
+        else:
+            return 0
 
 __doc__ += random_tests("""
 >>> play_game(Fig52Game(), random_player, random_player)
