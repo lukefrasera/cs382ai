@@ -205,6 +205,7 @@ def play_game_depth(game, d,  *players):
                 print "illegal Move"
 
             if game.terminal_test(state):
+                game.display()
                 return game.utility(state, game.to_move(game.initial))
 
 #______________________________________________________________________________
