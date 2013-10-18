@@ -10,7 +10,7 @@ import random
 def minimax_decision(state, game):
     """Given a state in a game, calculate the best move by searching
     forward all the way to the terminal states. [Fig. 5.3]"""
-
+    print state
     player = game.to_move(state)
 
     def max_value(state):
@@ -156,12 +156,15 @@ def random_player(game, state):
 
 def alphabeta_player(game, state, d):
     return alphabeta_search(state, game, d)
+
 def alphabeta_full_search_player(game, state):
     return alphabeta_full_search(state, game)
+
 def minimax_decision_player(game, state):
-    return minimax_decision(game, state)
+    return minimax_decision(state, game)
+
 def minimax_decision_depth_player(game, state, d):
-    return minimax_decision_depth(game, state, d)
+    return minimax_decision_depth(state, game, d)
 
 def play_game(game, *players):
     """Play an n-person, move-alternating game.
@@ -172,6 +175,7 @@ def play_game(game, *players):
     while True:
         for player in players:
             while(True):
+                print state
                 move = player(game, state)
                 oldstate = state
                 state = game.result(state, move)
@@ -194,7 +198,7 @@ def play_game_depth(game, d,  *players):
                 move = player(game, state, d=d)
                 oldstate = state
                 state = game.result(state, move)
-                print game.actions(state)
+                # print game.actions(state)
                 if oldstate != state:
                     break
                 print "illegal Move"
@@ -371,13 +375,18 @@ class ConnectFour(TicTacToe):
             self.k_in_row(board, move, player, (1, 1))):
             return if_(player == 'X', +infinity, -infinity)
 
-        L += self.in_row(board, move, player, (0, 1), state)
-        L += self.in_row(board, move, player, (1, 0), state)
-        L += self.in_row(board, move, player, (1, -1), state)
-        L += self.in_row(board, move, player, (1, 1), state)
+        L1 = self.in_row(board, move, player, (0, 1), state)
+        L2 = self.in_row(board, move, player, (1, 0), state)
+        L3 = self.in_row(board, move, player, (1, -1), state)
+        L4 = self.in_row(board, move, player, (1, 1), state)
+
+        for i in range(0, self.k-1):
+            L1[i] += L2[i]
+            L1[i] += L3[i]
+            L1[i] += L4[i]
 
         for i in range(1, self.k):
-            score +=  2^i * len([x for x in L if x == i])
+            score +=  2^i * L1[i-1]
 
         return if_(player == 'X', +score, -score)
 
@@ -388,7 +397,7 @@ class ConnectFour(TicTacToe):
     def in_row(self, board, move, player, (delta_x, delta_y), state):
         "Return true if there is a line through move on board for player."
         x, y = move
-        L = []
+        L = [0 for x in range(1, self.k)]
         for x,y in self.actions(state):
             n = 0 # n is number of moves in row
             while board.get((x, y)) == player:
@@ -400,8 +409,8 @@ class ConnectFour(TicTacToe):
                 x, y = x - delta_x, y - delta_y
             n -= 1 # Because we counted move itself twice
 
-            for i in range(1,n):
-                L.append(i)
+            for i in range(0,n-1):
+                L[i] +=1
         return L
             
 

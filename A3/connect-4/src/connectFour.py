@@ -51,8 +51,6 @@ def main(argv):
 	else:
 		print play_game(ConnectFour(h=columns, v=rows, k=k), minimax_decision_player, human_player)
 
-	
-
 
 
 if __name__ == '__main__':
