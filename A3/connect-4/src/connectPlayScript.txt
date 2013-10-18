@@ -1,0 +1,113 @@
+Script started on Thu 17 Oct 2013 06:29:12 PM PDT
+bash: /home/luke/ros_ws/devel/setup.bash: No such file or directory
+]0;luke@lukeZen: ~/Documents/cs382ai/A3/connect-4/srcluke@lukeZen:~/Documents/cs382ai/A3/connect-4/src$ python connectFour.py -d 2[K4
+. . . . . . .
+. . . . . . .
+. . . . . . .
+. . . . . . .
+. . . . . . .
+X . . . . . .
+1 2 3 4 5 6 7 Select Column 1-72
+. . . . . . .
+. . . . . . .
+. . . . . . .
+. . . . . . .
+X . . . . . .
+X O . . . . .
+1 2 3 4 5 6 7 Select Column 1-73
+. . . . . . .
+. . . . . . .
+. . . . . . .
+X . . . . . .
+X . . . . . .
+X O O . . . .
+1 2 3 4 5 6 7 Select Column 1-71
+. . . . . . .
+. . . . . . .
+O . . . . . .
+X . . . . . .
+X . X . . . .
+X O O . . . .
+1 2 3 4 5 6 7 Select Column 1-74
+. . . . . . .
+. . . . . . .
+O . . . . . .
+X . . . . . .
+X . X . . . .
+X O O O X . .
+1 2 3 4 5 6 7 Select Column 1-74
+. . . . . . .
+X . . . . . .
+O . . . . . .
+X . . . . . .
+X . X O . . .
+X O O O X . .
+1 2 3 4 5 6 7 Select Column 1-72
+X . . . . . .
+X . . . . . .
+O . . . . . .
+X . . . . . .
+X O X O . . .
+X O O O X . .
+1 2 3 4 5 6 7 Select Column 1-75
+X . . . . . .
+X . . . . . .
+O . . . . . .
+X X . . . . .
+X O X O O . .
+X O O O X . .
+1 2 3 4 5 6 7 Select Column 1-75
+X . . . . . .
+X . . . . . .
+O . . . . . .
+X X . X O . .
+X O X O O . .
+X O O O X . .
+1 2 3 4 5 6 7 Select Column 1-73
+X . . . . . .
+X . . . . . .
+O X . . . . .
+X X O X O . .
+X O X O O . .
+X O O O X . .
+1 2 3 4 5 6 7 Select Column 1-73
+X . . . . . .
+X X . . . . .
+O X O . . . .
+X X O X O . .
+X O X O O . .
+X O O O X . .
+1 2 3 4 5 6 7 Select Column 1-72
+X O . . . . .
+X X X . . . .
+O X O . . . .
+X X O X O . .
+X O X O O . .
+X O O O X . .
+1 2 3 4 5 6 7 Select Column 1-75
+X O . . . . .
+X X X . X . .
+O X O . O . .
+X X O X O . .
+X O X O O . .
+X O O O X . .
+1 2 3 4 5 6 7 Select Column 1-76
+X O X . . . .
+X X X . X . .
+O X O . O . .
+X X O X O . .
+X O X O O . .
+X O O O X O .
+1 2 3 4 5 6 7 Select Column 1-76
+X O X . . . .
+X X X . X . .
+O X O X O . .
+X X O X O . .
+X O X O O O .
+X O O O X O .
+1 2 3 4 5 6 7 Select Column 1-74
+inf
+]0;luke@lukeZen: ~/Documents/cs382ai/A3/connect-4/srcluke@lukeZen:~/Documents/cs382ai/A3/connect-4/src$ exit
+exit
+
+Script done on Thu 17 Oct 2013 06:34:49 PM PDT
