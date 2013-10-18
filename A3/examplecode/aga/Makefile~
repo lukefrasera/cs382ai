@@ -1,6 +1,6 @@
 HDRS = const.h type.h extern.h exfunc.h
 
-OBJS = super_xover.o f11C.o gen.o init.o main.o  rep.o \
+OBJS = super_xover.o f1C.o gen.o init.o main.o  rep.o \
 	stats.o  random.o  select.o utils.o halve.o scale.o
 
 

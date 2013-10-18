@@ -1,11 +1,11 @@
-200
+10
 150
-500
+50
 40
 4
 0.1
 0.32
-OutputFile
+OutputFile1.txt
 ofile
 1
 0
