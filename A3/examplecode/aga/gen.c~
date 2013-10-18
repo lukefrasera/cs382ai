@@ -29,7 +29,7 @@ int gen0(IPTR oldpop, IPTR newpop, int t)
     pj->parent2 = p2;
 
     
-    pjplus1->fitness = eval(pj->chrom); 
+    pjplus1->fitness = eval(pjplus1->chrom); 
     pjplus1->parent1 = p2;
     pjplus1->parent2 = p1;
 
@@ -59,11 +59,11 @@ int gen1(IPTR oldpop, IPTR newpop, int t)
 
     cross(om1, om2, pj, pjplus1);
 
-    pj->fitness = eval_org(pj); 
+    pj->fitness = eval(pj->chrom); 
     pj->parent1 = p1;
     pj->parent2 = p2;
 
-    pjplus1->fitness = eval_org(pjplus1); 
+    pjplus1->fitness = eval(pjplus1->chrom); 
     pjplus1->parent1 = p2;
     pjplus1->parent2 = p1;
     
@@ -94,12 +94,12 @@ int gen0_scaled(IPTR oldpop, IPTR newpop, int t)
 
     cross(om1, om2, pj, pjplus1);
 
-    pj->fitness = eval_org(pj); 
+    pj->fitness = eval_org(pj->chrom); 
     pj->parent1 = p1;
     pj->parent2 = p2;
 
     
-    pjplus1->fitness = eval_org(pjplus1); 
+    pjplus1->fitness = eval(pjplus1->chrom); 
     pjplus1->parent1 = p2;
     pjplus1->parent2 = p1;
 
@@ -130,11 +130,11 @@ int gen1_scaled(IPTR oldpop, IPTR newpop, int t)
 
     cross(om1, om2, pj, pjplus1);
 
-    pj->fitness = eval_org(pj); 
+    pj->fitness = eval(pj->chrom); 
     pj->parent1 = p1;
     pj->parent2 = p2;
 
-    pjplus1->fitness = eval_org(pjplus1); 
+    pjplus1->fitness = eval(pjplus1->chrom); 
     pjplus1->parent1 = p2;
     pjplus1->parent2 = p1;
     

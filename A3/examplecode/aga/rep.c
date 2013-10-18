@@ -27,8 +27,8 @@ void report(gen, pop)
 
 void raw_stat(FILE *fp, IPTR pop)
 {
-  fprintf(fp," %3d %lf %lf %lf min=%5.2lf smin=%5.2lf", gen, max, smax, avg, min, smin);
-  fprintf(fp," %3d %lf %3d", biggen, bigmax, bigind);
+  fprintf(fp," %3d, %lf, %lf, %lf, min=%5.2lf, smin=%5.2lf, ", gen, max, smax, avg, min, smin);
+  fprintf(fp," %3d, %lf, %3d, ", biggen, bigmax, bigind);
   fprintf(fp," %lf\n", pop[maxi].fitness);
 }
 

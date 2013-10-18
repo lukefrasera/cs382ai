@@ -74,6 +74,7 @@ void menu(int *bitStream, int numIterations)
 	int run = 10;
 	int runningTotal = 0;
 	int average = 0;
+	int result;
 	while(!exit)
 	{
 		runningTotal = 0;
@@ -88,7 +89,9 @@ void menu(int *bitStream, int numIterations)
 			case 1:
 				for(int counter = 0; counter < run; counter++)
 				{
-					runningTotal += hill_Climber(bitStream, numIterations);
+					result = hill_Climber(bitStream, numIterations);
+					cout << "Attempt # " << counter + 1 << " result: " << result << endl;
+					runningTotal += result;
 				}
 				average = runningTotal / 10;
 				cout << "Average: " << average << endl;

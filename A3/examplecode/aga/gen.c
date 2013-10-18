@@ -94,7 +94,7 @@ int gen0_scaled(IPTR oldpop, IPTR newpop, int t)
 
     cross(om1, om2, pj, pjplus1);
 
-    pj->fitness = eval_org(pj->chrom); 
+    pj->fitness = eval(pj->chrom); 
     pj->parent1 = p1;
     pj->parent2 = p2;
 
