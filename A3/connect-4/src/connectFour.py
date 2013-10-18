@@ -45,13 +45,11 @@ def main(argv):
 		if dLimit == True:
 			print play_game_depth(ConnectFour(h=columns, v=rows, k=k), depth, alphabeta_player, human_player)
 		else:
-			print play_game(ConnectFour(h=columns, v=rows, k=k), alphabeta_full_search_player, human_player)
+			print play_game(ConnectFourFullSearch(h=columns, v=rows, k=k), alphabeta_full_search_player, human_player)
 	elif dLimit== True:
 		print play_game_depth(ConnectFour(h=columns, v=rows, k=k), depth, minimax_decision_depth_player, human_player)
 	else:
-		print play_game(ConnectFour(h=columns, v=rows, k=k), minimax_decision_player, human_player)
-
-	
+		print play_game(ConnectFourFullSearch(h=columns, v=rows, k=k), minimax_decision_player, human_player)
 
 
 
